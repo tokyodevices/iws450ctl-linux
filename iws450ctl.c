@@ -78,8 +78,8 @@ static usbDevice_t  *openDevice(char *serialNumber)
 
 static void usage(char *myName)
 {
-	printf("IWS450-US host controller (Linux) Version 0.1\n");
-	printf("2021 (C) Tokyo Devices, Inc.\n");
+	printf("IWS450-US host controller (Linux) Version 0.1.2\n");
+	printf("2021-2023 (C) Tokyo Devices, Inc.\n");
 	printf("https://tokyodevices.jp/\n");
 	printf("usage:\n");
 	printf("  %s LIST ... List all serial number of detected device(s).\n", myName);
@@ -90,6 +90,7 @@ static void usage(char *myName)
 
 static void measure(void)
 {
+	int count = 0;
 	unsigned short average, cal;
 
 	do
@@ -105,6 +106,8 @@ static void measure(void)
 		if( mode == MODE_RAW )
 		{
 			printf("%u\n", average);
+			count++;
+			if( count == COUNT ) break;
 		}
 		else if ( mode == MODE_SENS )
 		{
